@@ -1,0 +1,67 @@
+<html>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body style="background: rgb(88, 36, 45); font-family: sans-serif; color: white;">
+
+<h1>Tie the Rakhi</h1>
+<h4>Move your mouse over the hand to place and tie your rakhi</h4>
+
+<hr/>
+
+<div id="gift" style="float: left; display:none;">
+	<h1>Happy Rakshabandhan</h1>
+	<h4><a style="color: pink;" href='http://www.youtube.com/watch?v=oJpqkNX_V-4&list=PL50BD67FD8A0BDA0D'>Click here to open your gift</a></h4>
+</div>
+
+<div id="area" style="margin-top: 15%; margin-bottom: 15%;">
+<img id="rakhi" src="rakhi.png" style="position: absolute; z-index: 1;"/>
+<img id="hand" src="hand.png" style="position: relative; float: right; top: 40%;"/>
+</div>
+
+<script>
+var x = $('#rakhi');
+var y = $('#hand');
+
+var flag = 1;
+var animateFlag = 1;
+var rakhiFlag = 1;
+var count = 0;
+
+$(document).mousemove(function(e) {
+	if (rakhiFlag == 1) {
+		x.css({left:e.pageX, top:e.pageY});
+		dist = Math.sqrt(Math.pow(x.position().top - y.position().top,2) + Math.pow(x.position().left - y.position().left,2));
+		heightDiff = x.position().top - y.position().top;
+	}
+	//console.log(dist, heightDiff);
+	if (dist < 100 && animateFlag == 1) {
+		if (flag == 1) {
+			y.css({top: Math.random(123)*200, left: Math.random(123)*-600});
+		}
+		else {
+			y.css({top: Math.random(123)*-200, left: Math.random(123)*-600});
+		}
+		flag = flag * -1;
+		//console.log(flag);
+		count = count + 1;
+	}
+	if (count == 50) {
+		alert("You must've really wanted to tie a rakhi on my hands that you persisted so long. For that you'll get a gift once you tie the rakhi. I won't move any more, I promise.");
+		count = count + 1;
+	}
+	if (count == 5) {
+		alert("Ha ha! Gotcha! No, seriously, you can tie it now.");
+		count = count + 1;
+		animateFlag = 0;
+		//z.css(x.position());
+		//z.css({display: 'block'});
+	}
+	if (dist < 82 && dist > 80 && heightDiff <-45 && heightDiff > -115 && animateFlag == 0) {
+		$('#gift').css({display: 'block'});
+		rakhiFlag = 0;
+	}
+});
+
+</script>
+</body>
